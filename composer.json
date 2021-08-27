@@ -1,0 +1,26 @@
+{
+  "name": "simple/green-framework",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Den Rat",
+      "email": "dinisimys2018@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.0",
+    "ext-pdo": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "GF\\": "framework/"
+    },
+    "files": [
+      "framework/functions/core.php",
+      "framework/functions/debug.php"
+    ]
+  }
+}
