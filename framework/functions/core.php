@@ -1,7 +1,7 @@
 <?php
 
 
-function app(string|null $name = null, array $parameters = []):mixed {
+function app(?string $name = null, array $parameters = []):mixed {
     if (is_null($name)) {
         return \GF\Core\App::getInstance();
     }
@@ -9,7 +9,7 @@ function app(string|null $name = null, array $parameters = []):mixed {
     return \GF\Core\App::getInstance()->get($name, $parameters);
 }
 
-function config(string|array|null $key = null,mixed $default = null) {
+function config(string|array|null $key = null,mixed $default = null):mixed {
 
     if(is_null($key)) {
         return app('config')->getData();
@@ -27,7 +27,7 @@ function config(string|array|null $key = null,mixed $default = null) {
 }
 
 
-function base_path(string $path = ''):string {
+function basePath(string $path = ''):string {
     return app('path')->base($path);
 }
 
@@ -37,7 +37,7 @@ function value($value)
 }
 
 
-function env(string $key,string|null $default = null):string
+function env(string $key,?string $default = null):string
 {
     return app('config')->getEnv($key,$default);
 }
@@ -51,6 +51,11 @@ function request():\GF\HTTP\Request
 function responseJSON():\GF\HTTP\ResponseJSON
 {
     return new \GF\HTTP\ResponseJSON();
+}
+
+function isClosure(mixed $var)
+{
+    return $var instanceof \Closure;
 }
 
 

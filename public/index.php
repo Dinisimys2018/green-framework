@@ -8,7 +8,9 @@ define('GF_START_TIME',microtime(1));
 
 app()->init();
 
-app(\GF\HTTP\Handler::class)->run();
+dd(QueryBuilder::setDTO(Contact::class))->w
+dd(\App\Database\DTO\Contact::whereNotNull('email')->get());
+
+//app(\GF\HTTP\Handler::class)->run();
 
 
-var_export(PHP_EOL.'TIME WORK='.round(microtime(1)-GF_START_TIME,2).'sec'.PHP_EOL);

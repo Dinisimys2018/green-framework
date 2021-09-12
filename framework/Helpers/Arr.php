@@ -6,21 +6,27 @@ use ArrayAccess;
 
 class Arr
 {
-    public static function get(array|ArrayAccess $array, string|null $key,mixed $default = null):mixed
+    public static function get(array|ArrayAccess $array, array|string|null $key,mixed $default = null):mixed
     {
         if (is_null($key)) {
             return $default;
         }
 
-        if(self::exists($array,$key)) {
-            return $array[$key];
+        if(is_array($key)) {
+            $keys = $key;
+        } else {
+            if(self::exists($array,$key)) {
+                return $array[$key];
+            }
+
+            if (!str_contains($key, '.')) {
+                return value($default);
+            }
+            $keys = explode('.',$key);
         }
 
-        if (!str_contains($key, '.')) {
-            return value($default);
-        }
 
-        foreach (explode('.',$key) as $index) {
+        foreach ($keys as $index) {
             if (static::accessible($array) && static::exists($array, $index)) {
                 $array = $array[$index];
             } else {

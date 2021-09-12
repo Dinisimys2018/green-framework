@@ -1,15 +1,17 @@
 <?php
 
-if(!function_exists('dd')) {
-    function dd(...$vars) {
-        dump(...$vars);
-        die();
-    }
+
+function dd(...$vars) {
+    dump(...$vars);
+    die();
 }
 
-if(!function_exists('dump')) {
-    function dump(...$vars) {
-        var_export($vars);
-        echo '<hr>';
-    }
+function dump(...$vars) {
+    var_dump($vars);
+    echo '<hr>';
+}
+
+function timeWork():float
+{
+    return round(microtime(1)-GF_START_TIME,2);
 }

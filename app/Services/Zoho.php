@@ -4,8 +4,13 @@ namespace App\Services;
 
 class Zoho
 {
+
+    public function __construct(public SMS $sms)
+    {
+    }
+
     public function get($c)
     {
-        return $c+200;
+        return $this->sms->get('zoho'.$c);
     }
 }

@@ -11,6 +11,10 @@ class ResponseJSON
 
     protected array $meta = [];
 
+    protected array $http = [
+        'code' => 200
+    ];
+
 
     public function success(array $data = [])
     {
@@ -28,6 +32,9 @@ class ResponseJSON
 
     public function exception(\Exception|\Error $exception)
     {
+        if($exception->getCode()!=0) {
+            $this->http['code'] = $exception->getCode();
+        }
         $this->info = [
             'status' => 'error',
             'message' => $exception->getMessage(),
@@ -38,7 +45,9 @@ class ResponseJSON
 
     public function render()
     {
+        http_response_code($this->http['code']);
         header('Content-Type: application/json');
+        $this->info['time_work'] = timeWork();
         $result = [
             'info' => $this->info,
             'data' => $this->data,

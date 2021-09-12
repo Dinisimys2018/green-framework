@@ -9,7 +9,7 @@ class Handler
 
     }
 
-    public function response(\Exception|\Error $exception)
+    public function responseHTTP(\Exception|\Error $exception)
     {
         return responseJSON()->exception($exception);
     }

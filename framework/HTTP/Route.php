@@ -24,7 +24,7 @@ class Route extends PHPFileCache
 
     protected function prepareData(): void
     {
-        $dir = base_path('routes/');
+        $dir = basePath('routes/');
         $list = scandir($dir);
         unset($list[0],$list[1]);
         foreach ($list as $item) {
@@ -153,7 +153,7 @@ class Route extends PHPFileCache
             request()->setParams($route['params']);
             return $route;
         }
-        throw new \Exception('Not found page');
+        throw new \Exception('Route not found',404);
 
     }
 

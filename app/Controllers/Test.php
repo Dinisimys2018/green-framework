@@ -7,10 +7,8 @@ use GF\HTTP\Request;
 
 class Test
 {
-
-
-    public function action(Request $request,$p)
+    public function action(Zoho $zoho,$p)
     {
-        return responseJSON()->success(['p' => $p]);
+        return responseJSON()->success(['p' => $zoho->get($p)]);
     }
 }

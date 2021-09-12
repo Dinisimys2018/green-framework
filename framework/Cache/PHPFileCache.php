@@ -21,7 +21,7 @@ abstract class PHPFileCache
 
     public function path():string
     {
-        return base_path($this->pathCache);
+        return basePath($this->pathCache);
     }
 
     public function write():void

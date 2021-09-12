@@ -14,11 +14,9 @@ class Handler
                 $route['action'],
                 $route['params']
             );
-            throw new \Exception('uups');
-            
         } catch (\Exception|\Error $exception)
         {
-            $response = app(\App\Exceptions\Handler::class)->response($exception);
+            $response = app(\App\Exceptions\Handler::class)->responseHTTP($exception);
         }
         $response->render();
 

@@ -23,7 +23,7 @@ class Config extends PHPFileCache
 
     public function scanDir(string $path = '')
     {
-        $dir = base_path('config'.DIRECTORY_SEPARATOR.$path);
+        $dir = basePath('config'.DIRECTORY_SEPARATOR.$path);
         $list = scandir($dir);
         unset($list[0],$list[1]);
         foreach ($list as $item) {
@@ -51,10 +51,10 @@ class Config extends PHPFileCache
 
     public  function loadEnvIni()
     {
-        $this->envData = parse_ini_file(base_path('env.ini'),true);
+        $this->envData = parse_ini_file(basePath('env.ini'),true);
     }
 
-    public function getEnv(string $key,string|null $default):string|null
+    public function getEnv(string $key,?string $default):?string
     {
         return Arr::get($this->envData,$key,$default);
     }
