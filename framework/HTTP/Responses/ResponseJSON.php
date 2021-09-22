@@ -1,8 +1,8 @@
 <?php
 
-namespace GF\HTTP;
+namespace GF\HTTP\Responses;
 
-class ResponseJSON
+class ResponseJSON implements ResponseInterface
 {
 
     protected array $info = [];
@@ -16,7 +16,7 @@ class ResponseJSON
     ];
 
 
-    public function success(array $data = [])
+    public function success(array $data = []):self
     {
         $this->info = ['status' => 'success'];
         $this->data = $data;
@@ -30,7 +30,7 @@ class ResponseJSON
         return $this;
     }
 
-    public function exception(\Exception|\Error $exception)
+    public function exception(\Throwable $exception):self
     {
         if($exception->getCode()!=0) {
             $this->http['code'] = $exception->getCode();

@@ -2,15 +2,25 @@
 
 namespace GF\Exceptions;
 
+use GF\HTTP\Responses\ResponseInterface;
+
 class Handler
 {
-    public function report(\Exception|\Error $exception)
+    public function report(\Throwable $exception)
     {
 
     }
 
-    public function responseHTTP(\Exception|\Error $exception)
+    public function responseHTTP(\Throwable $exception):ResponseInterface
     {
         return responseJSON()->exception($exception);
+    }
+
+    public function responseConsole(\Throwable $exception):ResponseInterface
+    {
+        throw new \Exception(
+            $exception->getMessage(),
+            $exception->getCode(),
+            $exception);
     }
 }

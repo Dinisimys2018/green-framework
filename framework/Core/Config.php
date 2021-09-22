@@ -10,8 +10,6 @@ class Config extends PHPFileCache
 
     protected string $pathCache = 'bootstrap/config.php';
 
-    protected array $data = [];
-
     protected array $envData = [];
 
 
@@ -35,17 +33,6 @@ class Config extends PHPFileCache
             $key = str_replace(DIRECTORY_SEPARATOR,'.',$path).basename($item,'.php');
             Arr::set($this->data,$key,require $file);
         }
-    }
-
-
-    public function set(string $key,mixed $value):void
-    {
-        Arr::set($this->data,$key,$value);
-    }
-
-    public function get(string $key,mixed $default = null):mixed
-    {
-        return Arr::get($this->data,$key,$default);
     }
 
 

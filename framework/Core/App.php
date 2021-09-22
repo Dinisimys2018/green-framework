@@ -3,20 +3,36 @@
 namespace GF\Core;
 
 
-use GF\HTTP\Handler;
+use GF\Helpers\Arr;
 
 class App extends Singleton
 {
 
     protected array $aliases = [
         'path' => Path::class,
-        'config' => Config::class
+        'config' => Config::class,
+        'http' => \GF\HTTP\Kernel::class,
+        'console' => \GF\Console\Kernel::class
+    ];
+
+    protected $vars = [
+
     ];
 
     /**
      * @var array Хранит массив объектов - экзепляров подклассов
      */
     private array $instancesObjects = [];
+
+    public function setVar(string $key,mixed $value)
+    {
+        Arr::set($this->vars,$key,$value);
+    }
+
+    public function getVar(string $key,mixed $default = null):mixed
+    {
+        return Arr::get($this->vars,$key,$default);
+    }
 
     public function get(string $name,array $parameters = []):mixed
     {
@@ -43,6 +59,13 @@ class App extends Singleton
         return $this->instancesObjects[$key] = $instance;
     }
 
+
+    public function run($environment)
+    {
+        define('GF_START_TIME',microtime(1));
+        $this->init();
+        $this->get($environment)->load()->handle();
+    }
 
     public function init()
     {

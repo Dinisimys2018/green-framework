@@ -4,7 +4,7 @@ namespace GF\Helpers;
 
 class Str
 {
-    static public function removeLastChar(string $string)
+    static public function removeLastChar(string $string):string
     {
         return substr($string,0,-1);
     }

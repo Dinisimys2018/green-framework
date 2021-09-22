@@ -2,24 +2,31 @@
 
 namespace GF\HTTP;
 
-class Handler
+use GF\Core\Interfaces\KernelInterface;
+
+class Kernel implements KernelInterface
 {
-    public static function run()
+
+    public function load():static
+    {
+        app(Route::class)->loadData();
+        return $this;
+    }
+
+    public function handle()
     {
         try {
-            app(Route::class)->loadData();
             $route = app(Route::class)->current();
             $response = app()->call(
                 $route['controller'],
                 $route['action'],
                 $route['params']
             );
-        } catch (\Exception|\Error $exception)
+        } catch (\Throwable $exception)
         {
             $response = app(\App\Exceptions\Handler::class)->responseHTTP($exception);
         }
         $response->render();
-
     }
 
 }

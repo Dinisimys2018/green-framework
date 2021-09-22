@@ -3,13 +3,15 @@
 namespace GF\Cache;
 
 
+use GF\Helpers\Arr;
+
 abstract class PHPFileCache
 {
     protected string $pathCache;
 
-    protected array $data;
+    protected array $data = [];
 
-     function read()
+    function read()
     {
         $this->data = require $this->path();
     }
@@ -35,13 +37,25 @@ abstract class PHPFileCache
             $this->read();
         } else {
             $this->prepareData();
-            $this->write();
+            if(config('app.env')=='prod') {
+                $this->write();
+            }
         }
     }
 
     public function getData(): array
     {
         return $this->data;
+    }
+
+    public function set(string $key,mixed $value):void
+    {
+        Arr::set($this->data,$key,$value);
+    }
+
+    public function get(string $key,mixed $default = null):mixed
+    {
+        return Arr::get($this->data,$key,$default);
     }
 
     abstract protected function prepareData():void;

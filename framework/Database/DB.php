@@ -2,7 +2,6 @@
 
 namespace GF\Database;
 
-use App\Models\Contact;
 
 class DB
 {

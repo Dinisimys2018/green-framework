@@ -21,4 +21,5 @@ class Contact extends DTO
 
     #[Integer(40),DefaultValue(144)]
     public int $id2;
+
 }

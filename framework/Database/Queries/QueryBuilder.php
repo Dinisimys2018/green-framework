@@ -21,18 +21,6 @@ class QueryBuilder
 
     protected ?string $dtoClass = null;
 
-    protected function setDtoClass(?string $dtoClass): void
-    {
-        $this->dtoClass = $dtoClass;
-    }
-
-    public static function setDTO(string $dtoClass):self
-    {
-        $builder = new self();
-        $builder->setDtoClass($dtoClass);
-        return $builder;
-    }
-
     public function getTable(): string
     {
         return $this->table;
@@ -142,4 +130,21 @@ class QueryBuilder
         return $sql;
     }
 
+    public function table(string $table):static
+    {
+        $builder = new static();
+        $builder->setTable($table);
+        return $builder;
+    }
+
+    public function updateOne(array $record)
+    {
+        $this->updateMany([$record]);
+    }
+
+    public function updateMany(array $records)
+    {
+        $this->type = 'update';
+
+    }
 }

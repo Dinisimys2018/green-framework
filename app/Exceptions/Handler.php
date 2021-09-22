@@ -2,16 +2,18 @@
 
 namespace App\Exceptions;
 
+use GF\HTTP\Responses\ResponseInterface;
+
 class Handler extends \GF\Exceptions\Handler
 {
-    public function report(\Exception|\Error $exception)
+    public function report(\Throwable $exception)
     {
         parent::report($exception);
     }
 
 
-    public function response(\Exception|\Error $exception)
+    public function responseHTTP(\Throwable $exception):ResponseInterface
     {
-        return parent::response($exception);
+        return parent::responseHTTP($exception);
     }
 }

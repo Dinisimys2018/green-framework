@@ -9,7 +9,8 @@ function app(?string $name = null, array $parameters = []):mixed {
     return \GF\Core\App::getInstance()->get($name, $parameters);
 }
 
-function config(string|array|null $key = null,mixed $default = null):mixed {
+function config(string|array|null $key = null,mixed $default = null):mixed
+{
 
     if(is_null($key)) {
         return app('config')->getData();
@@ -24,6 +25,7 @@ function config(string|array|null $key = null,mixed $default = null):mixed {
             app('config')->set($keyOne,$value);
         }
     }
+    return null;
 }
 
 
